@@ -1,20 +1,20 @@
-// eslint.config.js
-import js from '@eslint/js';
+import js from '@eslint/js'
+import globals from 'globals'
 
 export default [
   {
+    ignores: ['node_modules/**', 'dist/**'], // what to skip
+  },
+  {
     files: ['**/*.js'],
     languageOptions: {
-      ecmaVersion: 2021,
       sourceType: 'module',
+      globals: globals.node,
     },
+    ...js.configs.recommended, // use ESLint's recommended rules
     rules: {
-      semi: ['error', 'always'],
       'no-unused-vars': 'warn',
       'no-console': 'off',
     },
-    extends: [
-      'eslint:recommended',
-    ],
   },
-];
+]
