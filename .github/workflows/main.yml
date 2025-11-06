@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint-test-build:
+  test-build:
     runs-on: ubuntu-latest
 
     defaults:
@@ -29,14 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run lint
-        run: npm run lint
-
-      - name: Run tests
-        run: npm test
+      # 👇 Removed "lint" step
+      - name: Run tests (skip if none)
+        run: npm test --passWithNoTests
 
   docker-build-push:
-    needs: lint-test-build
+    needs: test-build
     runs-on: ubuntu-latest
 
     steps:

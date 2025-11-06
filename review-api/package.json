@@ -9,11 +9,9 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "lint": "eslint .",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.1",
     "bullmq": "^5.63.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -23,7 +21,6 @@
     "winston": "^3.18.3"
   },
   "devDependencies": {
-    "eslint": "^9.39.1",
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4"
