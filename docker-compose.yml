@@ -1,14 +1,16 @@
 version: '3.9'
 
 services:
+
   db:
     image: postgres:latest
     restart: always
     environment:
-      - POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: reviewdb
-    volumes: -pgdata:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reviewsdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     networks:
       - senti-net
 
@@ -49,7 +51,6 @@ services:
 
 volumes:
   pgdata:
-
 
 networks:
   senti-net:
