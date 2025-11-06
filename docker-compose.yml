@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: reviewdb
+    volumes: -pgdata:/var/lib/postgresql/data
+    networks:
+      - senti-net
+
+  queue:
+    image: redis:latest
+    restart: always
+    networks:
+      - senti-net
+
+  api:
+    build:
+      context: ./review-api
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/reviewsdb
+      - REDIS_URL=redis://queue:6379
+      - NODE_ENV=production
+    depends_on:
+      - db
+      - queue
+    networks:
+      - senti-net
+
+  worker:
+    build:
+      context: ./sentiment-worker
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/reviewsdb
+      - REDIS_URL=redis://queue:6379
+      - NODE_ENV=production
+    depends_on:
+      - db
+      - queue
+    networks:
+      - senti-net
+
+volumes:
+  pgdata:
+
+
+networks:
+  senti-net:
+    driver: bridge
