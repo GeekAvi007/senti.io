@@ -5,7 +5,9 @@ import { Worker } from 'bullmq';
 import { processReviewSentiment } from './sentimentProcessor.js';
 import IORedis from 'ioredis';
 
-const connection = new IORedis(process.env.REDIS_URL);
+const connection = new IORedis(process.env.REDIS_URL, {
+    maxRetriesPerRequest: null
+  });
 
 const worker = new Worker('reviewQueue', async job => {
   const { review_id, review_text } = job.data;

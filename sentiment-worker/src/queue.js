@@ -5,7 +5,9 @@ import { processReviewSentiment } from './sentimentProcessor.js';
 
 dotenv.config();
 
-const connection = new IORedis(process.env.REDIS_URL);
+const connection = new IORedis(process.env.REDIS_URL, {
+    maxRetriesPerRequest: null
+  });
 
 /**
  * Sets up the BullMQ worker for processing review sentiment analysis jobs.

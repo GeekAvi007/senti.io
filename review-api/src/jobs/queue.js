@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const connection = new IORedis(process.env.REDIS_URL);
+const connection = new IORedis(process.env.REDIS_URL, {
+    maxRetriesPerRequest: null
+  });
 
 export const reviewQueue = new Queue('reviewQueue', { connection })
