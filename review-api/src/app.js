@@ -5,6 +5,8 @@ import reviewRoutes from './routes/reviewRoutes.js'
 import { createLogger, transports, format} from 'winston'
 
 dotenv.config();
+
+const app = express();
 const port = process.env.PORT || 3000;
 
 const logger = createLogger({
