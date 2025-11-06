@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use('/api', reviewRoutes);
 
-app.use((err, req, res, next) => {
+app.use((err, res) => {
   logger.error(err.stack);
   res.status(500).json({ error: 'Internal Server Error' });
 });
